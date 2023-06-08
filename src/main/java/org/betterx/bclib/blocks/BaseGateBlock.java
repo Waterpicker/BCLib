@@ -39,13 +39,13 @@ public class BaseGateBlock extends FenceGateBlock implements BlockModelProvider 
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public BlockModel getItemModel(ResourceLocation resourceLocation) {
         return getBlockModel(resourceLocation, defaultBlockState());
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public @Nullable BlockModel getBlockModel(ResourceLocation blockId, BlockState blockState) {
         boolean inWall = blockState.getValue(IN_WALL);
         boolean isOpen = blockState.getValue(OPEN);
@@ -70,7 +70,7 @@ public class BaseGateBlock extends FenceGateBlock implements BlockModelProvider 
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public UnbakedModel getModelVariant(
             ResourceLocation stateId,
             BlockState blockState,

@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Optional;
 import org.jetbrains.annotations.Nullable;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class WorldSetupScreen extends LayoutScreen {
     private final WorldCreationContext context;
     private final CreateWorldScreen createWorldScreen;

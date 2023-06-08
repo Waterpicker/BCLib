@@ -16,7 +16,7 @@ import net.fabricmc.api.Environment;
 import java.util.List;
 import org.jetbrains.annotations.Nullable;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class Panel implements ComponentWithBounds, RelativeContainerEventHandler, NarratableEntry, Widget {
     protected LayoutComponent<?, ?> child;
     List<? extends GuiEventListener> listeners = List.of();

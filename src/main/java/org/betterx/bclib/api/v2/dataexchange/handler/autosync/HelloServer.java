@@ -76,7 +76,7 @@ public class HelloServer extends DataHandler.FromClient {
         super(DESCRIPTOR.IDENTIFIER);
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Override
     protected boolean prepareDataOnClient() {
         if (!Configs.CLIENT_CONFIG.isAllowingAutoSync()) {
@@ -87,7 +87,7 @@ public class HelloServer extends DataHandler.FromClient {
         return true;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Override
     protected void serializeDataOnClient(FriendlyByteBuf buf) {
         BCLib.LOGGER.info("Sending hello to server.");

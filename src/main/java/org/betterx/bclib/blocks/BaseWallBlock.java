@@ -1,10 +1,5 @@
 package org.betterx.bclib.blocks;
 
-import org.betterx.bclib.client.models.BasePatterns;
-import org.betterx.bclib.client.models.ModelsHelper;
-import org.betterx.bclib.client.models.PatternsHelper;
-import org.betterx.bclib.interfaces.BlockModelProvider;
-
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.BlockModelRotation;
 import net.minecraft.client.resources.model.UnbakedModel;
@@ -16,15 +11,18 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WallSide;
 import net.minecraft.world.level.storage.loot.LootContext;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.betterx.bclib.client.models.BasePatterns;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.interfaces.BlockModelProvider;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import org.jetbrains.annotations.Nullable;
 
 public class BaseWallBlock extends WallBlock implements BlockModelProvider {
     private final Block parent;
@@ -41,7 +39,7 @@ public class BaseWallBlock extends WallBlock implements BlockModelProvider {
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public BlockModel getItemModel(ResourceLocation blockId) {
         ResourceLocation parentId = Registry.BLOCK.getKey(parent);
         Optional<String> pattern = PatternsHelper.createJson(BasePatterns.ITEM_WALL, parentId);
@@ -49,7 +47,7 @@ public class BaseWallBlock extends WallBlock implements BlockModelProvider {
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public @Nullable BlockModel getBlockModel(ResourceLocation blockId, BlockState blockState) {
         ResourceLocation parentId = Registry.BLOCK.getKey(parent);
         String path = blockId.getPath();
@@ -67,7 +65,7 @@ public class BaseWallBlock extends WallBlock implements BlockModelProvider {
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public UnbakedModel getModelVariant(
             ResourceLocation stateId,
             BlockState blockState,

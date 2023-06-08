@@ -219,7 +219,7 @@ public class AnvilRecipe implements Recipe<Container>, UnknownReceipBookCategory
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public boolean canCraftInDimensions(int width, int height) {
         return true;
     }

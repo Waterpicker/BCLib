@@ -17,13 +17,13 @@ import java.util.Optional;
 import org.jetbrains.annotations.Nullable;
 
 public interface BlockModelProvider extends ItemModelProvider {
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     default @Nullable BlockModel getBlockModel(ResourceLocation resourceLocation, BlockState blockState) {
         Optional<String> pattern = PatternsHelper.createBlockSimple(resourceLocation);
         return ModelsHelper.fromPattern(pattern);
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     default UnbakedModel getModelVariant(
             ResourceLocation stateId,
             BlockState blockState,
@@ -34,7 +34,7 @@ public interface BlockModelProvider extends ItemModelProvider {
         return ModelsHelper.createBlockSimple(modelId);
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     default void registerBlockModel(
             ResourceLocation stateId,
             ResourceLocation modelId,

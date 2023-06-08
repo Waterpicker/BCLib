@@ -10,7 +10,7 @@ import net.fabricmc.api.Environment;
 
 import java.util.Optional;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public interface RelativeContainerEventHandler extends ContainerEventHandler {
     Rectangle getInputBounds();
 

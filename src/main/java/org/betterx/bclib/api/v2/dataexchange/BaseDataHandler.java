@@ -34,7 +34,7 @@ public abstract class BaseDataHandler {
         return identifier;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     abstract void receiveFromServer(
             Minecraft client,
             ClientPacketListener handler,
@@ -64,7 +64,7 @@ public abstract class BaseDataHandler {
 
     abstract void sendToClient(MinecraftServer server, ServerPlayer player);
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     abstract void sendToServer(Minecraft client);
 
     protected boolean isBlocking() {

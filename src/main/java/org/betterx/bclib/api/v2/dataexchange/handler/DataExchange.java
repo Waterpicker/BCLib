@@ -47,7 +47,7 @@ abstract public class DataExchange {
         return getInstance().descriptors.stream().filter(d -> d.equals(identifier)).findFirst().orElse(null);
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     protected void initClientside() {
         if (client != null) return;
         client = clientSupplier(this);
@@ -71,7 +71,7 @@ abstract public class DataExchange {
      * <p>
      * This is automatically called by BCLib. You can register {@link DataHandler}-Objects before this Method is called
      */
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public static void prepareClientside() {
         DataExchange api = DataExchange.getInstance();
         api.initClientside();
@@ -95,7 +95,7 @@ abstract public class DataExchange {
      * This is automatically called by BCLib. It will send all {@link DataHandler}-Objects that have {@link DataHandlerDescriptor#sendBeforeEnter} set to*
      * {@code true},
      */
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public static void sendOnEnter() {
         getInstance().descriptors.forEach((desc) -> {
             if (desc.sendBeforeEnter) {

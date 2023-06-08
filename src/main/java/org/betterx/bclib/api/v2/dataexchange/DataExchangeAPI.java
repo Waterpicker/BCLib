@@ -1,5 +1,9 @@
 package org.betterx.bclib.api.v2.dataexchange;
 
+import com.google.common.collect.Lists;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.betterx.bclib.BCLib;
 import org.betterx.bclib.api.v2.dataexchange.handler.DataExchange;
 import org.betterx.bclib.api.v2.dataexchange.handler.autosync.AutoSync;
@@ -7,13 +11,6 @@ import org.betterx.bclib.api.v2.dataexchange.handler.autosync.AutoSyncID;
 import org.betterx.bclib.config.Config;
 import org.betterx.bclib.config.Configs;
 import org.betterx.worlds.together.util.ModUtil;
-
-import net.minecraft.network.FriendlyByteBuf;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
-import com.google.common.collect.Lists;
 
 import java.io.File;
 import java.util.List;
@@ -29,7 +26,7 @@ public class DataExchangeAPI extends DataExchange {
         super();
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     protected ConnectorClientside clientSupplier(DataExchange api) {
         return new ConnectorClientside(api);
     }

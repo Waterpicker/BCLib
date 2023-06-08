@@ -15,7 +15,7 @@ import net.fabricmc.api.Environment;
 
 import org.jetbrains.annotations.Nullable;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ConfirmFixScreen extends BCLibLayoutScreen {
     protected final ConfirmFixScreen.Listener listener;
     private final Component description;
@@ -60,7 +60,7 @@ public class ConfirmFixScreen extends BCLibLayoutScreen {
         return grid;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public interface Listener {
         void proceed(boolean createBackup, boolean applyPatches);
     }

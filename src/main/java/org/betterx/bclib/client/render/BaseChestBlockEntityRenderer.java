@@ -30,7 +30,7 @@ import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 
 import java.util.HashMap;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class BaseChestBlockEntityRenderer implements BlockEntityRenderer<BaseChestBlockEntity> {
     private static final HashMap<Block, RenderType[]> LAYERS = Maps.newHashMap();
     private static final RenderType[] RENDER_TYPES;

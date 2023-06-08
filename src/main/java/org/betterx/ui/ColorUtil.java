@@ -297,7 +297,7 @@ public class ColorUtil {
 
     private static final Map<ResourceLocation, Integer> colorPalette = Maps.newHashMap();
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public static int extractColor(Item item) {
         ResourceLocation id = Registry.ITEM.getKey(item);
         if (id.equals(Registry.ITEM.getDefaultKey())) return -1;
@@ -331,7 +331,7 @@ public class ColorUtil {
         return color;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public static NativeImage loadImage(ResourceLocation image, int w, int h) {
         Minecraft minecraft = Minecraft.getInstance();
         ResourceManager resourceManager = minecraft.getResourceManager();

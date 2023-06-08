@@ -1,16 +1,5 @@
 package org.betterx.bclib.api.v2.generator;
 
-import org.betterx.bclib.BCLib;
-import org.betterx.bclib.api.v2.generator.config.BCLEndBiomeSourceConfig;
-import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiome;
-import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiomeRegistry;
-import org.betterx.bclib.api.v2.levelgen.biomes.BiomeAPI;
-import org.betterx.bclib.api.v2.levelgen.biomes.InternalBiomeAPI;
-import org.betterx.bclib.config.Configs;
-import org.betterx.bclib.interfaces.BiomeMap;
-import org.betterx.worlds.together.biomesource.BiomeSourceWithConfig;
-import org.betterx.worlds.together.biomesource.ReloadableBiomeSource;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
@@ -26,13 +15,25 @@ import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.levelgen.DensityFunction;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import org.betterx.bclib.BCLib;
+import org.betterx.bclib.api.v2.generator.config.BCLEndBiomeSourceConfig;
+import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiome;
+import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiomeRegistry;
+import org.betterx.bclib.api.v2.levelgen.biomes.BiomeAPI;
+import org.betterx.bclib.api.v2.levelgen.biomes.InternalBiomeAPI;
+import org.betterx.bclib.config.Configs;
+import org.betterx.bclib.interfaces.BiomeMap;
+import org.betterx.worlds.together.biomesource.BiomeSourceWithConfig;
+import org.betterx.worlds.together.biomesource.ReloadableBiomeSource;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.jetbrains.annotations.NotNull;
 
 public class BCLibEndBiomeSource extends BCLBiomeSource implements BiomeSourceWithConfig<BCLibEndBiomeSource, BCLEndBiomeSourceConfig>, ReloadableBiomeSource {
     public static Codec<BCLibEndBiomeSource> CODEC
@@ -294,8 +295,10 @@ public class BCLibEndBiomeSource extends BCLBiomeSource implements BiomeSourceWi
                 TheEndBiomesHelper.canGenerateInEnd(biome.unwrapKey().orElse(null));
     }
 
-    public static void register() {
-        Registry.register(Registry.BIOME_SOURCE, BCLib.makeID("end_biome_source"), CODEC);
+    public static void register(IEventBus bus) {
+        DeferredRegister<Codec<? extends BiomeSource>> BIOME_SOURCES = DeferredRegister.create(Registry.BIOME_SOURCE_REGISTRY, BCLib.MOD_ID);
+        BIOME_SOURCES.register("end_biome_source", () -> CODEC);
+        BIOME_SOURCES.register(bus);
     }
 
     @Override

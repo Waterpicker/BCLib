@@ -1,8 +1,5 @@
 package org.betterx.bclib.commands;
 
-import org.betterx.bclib.util.BlocksHelper;
-import org.betterx.worlds.together.tag.v3.CommonBlockTags;
-
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
@@ -21,15 +18,23 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.worlds.together.tag.v3.CommonBlockTags;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class CommandRegistry {
     public static void register() {
-        CommandRegistrationCallback.EVENT.register(CommandRegistry::register);
+        MinecraftForge.EVENT_BUS.addListener(new Consumer<RegisterCommandsEvent>() {
+            @Override
+            public void accept(RegisterCommandsEvent event) {
+                register(event.getDispatcher(), event.getBuildContext(), event.getCommandSelection());
+            }
+        });
     }
 
     private static void register(

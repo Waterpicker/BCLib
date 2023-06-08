@@ -1,9 +1,7 @@
 package org.betterx.bclib.api.v2.levelgen.biomes;
 
-import org.betterx.bclib.BCLib;
-import org.betterx.bclib.config.Configs;
-import org.betterx.bclib.mixin.common.BiomeGenerationSettingsAccessor;
-
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -15,22 +13,18 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-
-import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
-import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
-
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import org.apache.commons.lang3.mutable.MutableInt;
+import org.betterx.bclib.BCLib;
+import org.betterx.bclib.config.Configs;
+import org.betterx.bclib.mixin.common.BiomeGenerationSettingsAccessor;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
-import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
 public class InternalBiomeAPI {
@@ -274,20 +268,20 @@ public class InternalBiomeAPI {
     }
 
     static {
-        DynamicRegistrySetupCallback.EVENT.register(registryManager -> {
-            Optional<? extends Registry<Biome>> oBiomeRegistry = registryManager.registry(Registry.BIOME_REGISTRY);
-            RegistryEntryAddedCallback
-                    .event(oBiomeRegistry.get())
-                    .register((rawId, id, biome) -> {
-                        BCLBiome b = BiomeAPI.getBiome(id);
-                        if (!"minecraft".equals(id.getNamespace()) && (b == null || b == BCLBiomeRegistry.EMPTY_BIOME)) {
-                            //BCLib.LOGGER.info(" #### " + rawId + ", " + biome + ", " + id);
-                            //BIOMES_TO_SORT.add(id);
-//                            BIOME_ADDITIONS.computeIfAbsent(oBiomeRegistry.get(), reg -> new AtomicInteger(0))
-//                                           .incrementAndGet();
-                        }
-                    });
-        });
+//        DynamicRegistrySetupCallback.EVENT.register(registryManager -> {
+//            Optional<? extends Registry<Biome>> oBiomeRegistry = registryManager.registry(Registry.BIOME_REGISTRY);
+//            RegistryEntryAddedCallback
+//                    .event(oBiomeRegistry.get())
+//                    .register((rawId, id, biome) -> {
+//                        BCLBiome b = BiomeAPI.getBiome(id);
+//                        if (!"minecraft".equals(id.getNamespace()) && (b == null || b == BCLBiomeRegistry.EMPTY_BIOME)) {
+//                            //BCLib.LOGGER.info(" #### " + rawId + ", " + biome + ", " + id);
+//                            //BIOMES_TO_SORT.add(id);
+////                            BIOME_ADDITIONS.computeIfAbsent(oBiomeRegistry.get(), reg -> new AtomicInteger(0))
+////                                           .incrementAndGet();
+//                        }
+//                    });
+//        });
     }
 
     /**

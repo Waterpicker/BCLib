@@ -10,7 +10,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class VersionCheckerClient extends VersionChecker {
 
     public static void presentUpdateScreen(Screen parent) {

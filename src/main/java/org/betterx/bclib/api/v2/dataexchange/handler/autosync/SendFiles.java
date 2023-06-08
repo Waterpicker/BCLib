@@ -92,7 +92,7 @@ public class SendFiles extends DataHandler.FromServer {
 
     private List<Pair<AutoFileSyncEntry, byte[]>> receivedFiles;
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Override
     protected void deserializeIncomingDataOnClient(FriendlyByteBuf buf, PacketSender responseSender) {
         if (Configs.CLIENT_CONFIG.isAcceptingConfigs() || Configs.CLIENT_CONFIG.isAcceptingFiles() || Configs.CLIENT_CONFIG.isAcceptingMods()) {
@@ -135,7 +135,7 @@ public class SendFiles extends DataHandler.FromServer {
         }
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Override
     protected void runOnClientGameThread(Minecraft client) {
         if (Configs.CLIENT_CONFIG.isAcceptingConfigs() || Configs.CLIENT_CONFIG.isAcceptingFiles() || Configs.CLIENT_CONFIG.isAcceptingMods()) {
@@ -153,7 +153,7 @@ public class SendFiles extends DataHandler.FromServer {
     }
 
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     static void writeSyncedFile(AutoSyncID e, byte[] data, File fileName) {
         if (fileName != null && !PathUtil.isChildOf(PathUtil.GAME_FOLDER, fileName.toPath())) {
             BCLib.LOGGER.error(fileName + " is not within game folder " + PathUtil.GAME_FOLDER);
@@ -218,7 +218,7 @@ public class SendFiles extends DataHandler.FromServer {
         }
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     protected void showConfirmRestart(Minecraft client) {
         client.setScreen(new ConfirmRestartScreen(() -> {
             Minecraft.getInstance()

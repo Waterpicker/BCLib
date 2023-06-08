@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class Image extends CustomRenderComponent {
     protected Rectangle uvRect;
     public final ResourceLocation location;

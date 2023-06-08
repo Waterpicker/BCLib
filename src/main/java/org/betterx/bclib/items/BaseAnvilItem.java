@@ -52,7 +52,7 @@ public class BaseAnvilItem extends BlockItem implements ItemModelProvider {
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void appendHoverText(
             ItemStack itemStack,
             @Nullable Level level,
@@ -70,7 +70,7 @@ public class BaseAnvilItem extends BlockItem implements ItemModelProvider {
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public BlockModel getItemModel(ResourceLocation resourceLocation) {
         Block anvilBlock = getBlock();
         ResourceLocation blockId = Registry.BLOCK.getKey(anvilBlock);

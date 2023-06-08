@@ -62,8 +62,7 @@ public class PostInitAPI {
                 processBlockClient(block);
             }
         });
-
-
+        
         Registry.ITEM.forEach(item -> {
             processItemCommon(item);
         });
@@ -80,7 +79,7 @@ public class PostInitAPI {
         VersionChecker.startCheck(isClient);
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     private static void processBlockClient(Block block) {
         if (block instanceof RenderLayerProvider) {
             BCLRenderLayer layer = ((RenderLayerProvider) block).getRenderLayer();
@@ -112,13 +111,13 @@ public class PostInitAPI {
             ((PostInitable) block).postInit();
         }
         if (block instanceof BaseChestBlock) {
-            BaseBlockEntities.CHEST.registerBlock(block);
+            BaseBlockEntities.CHEST.get().registerBlock(block);
         } else if (block instanceof BaseSignBlock) {
-            BaseBlockEntities.SIGN.registerBlock(block);
+            BaseBlockEntities.SIGN.get().registerBlock(block);
         } else if (block instanceof BaseBarrelBlock) {
-            BaseBlockEntities.BARREL.registerBlock(block);
+            BaseBlockEntities.BARREL.get().registerBlock(block);
         } else if (block instanceof BaseFurnaceBlock) {
-            BaseBlockEntities.FURNACE.registerBlock(block);
+            BaseBlockEntities.FURNACE.get().registerBlock(block);
         }
         if (!(block instanceof PreventMineableAdd)) {
             if (block instanceof AddMineableShears) {

@@ -17,7 +17,7 @@ import net.fabricmc.api.Environment;
 
 import org.jetbrains.annotations.Nullable;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public abstract class LayoutScreen extends Screen {
     protected final int topPadding;
     protected final int bottomPadding;

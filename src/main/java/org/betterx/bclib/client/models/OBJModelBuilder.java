@@ -10,7 +10,7 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class OBJModelBuilder {
     private static final OBJModelBuilder INSTANCE = new OBJModelBuilder();
     private final List<ResourceLocation> textures = Lists.newArrayList();

@@ -58,7 +58,7 @@ public abstract class DataHandler extends BaseDataHandler {
     abstract protected void runOnGameThread(Minecraft client, MinecraftServer server, boolean isClient);
 
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Override
     void receiveFromServer(
             Minecraft client,
@@ -127,7 +127,7 @@ public abstract class DataHandler extends BaseDataHandler {
         }
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Override
     void sendToServer(Minecraft client) {
         if (prepareData(true)) {
@@ -168,12 +168,12 @@ public abstract class DataHandler extends BaseDataHandler {
             super(identifier, false);
         }
 
-        @Environment(EnvType.CLIENT)
+        @OnlyIn(Dist.CLIENT)
         protected boolean prepareDataOnClient() {
             return true;
         }
 
-        @Environment(EnvType.CLIENT)
+        @OnlyIn(Dist.CLIENT)
         abstract protected void serializeDataOnClient(FriendlyByteBuf buf);
 
         protected abstract void deserializeIncomingDataOnServer(
@@ -183,7 +183,7 @@ public abstract class DataHandler extends BaseDataHandler {
         );
         protected abstract void runOnServerGameThread(MinecraftServer server, Player player);
 
-        @Environment(EnvType.CLIENT)
+        @OnlyIn(Dist.CLIENT)
         @Override
         void receiveFromServer(
                 Minecraft client,
@@ -221,7 +221,7 @@ public abstract class DataHandler extends BaseDataHandler {
             BCLib.LOGGER.error("[Internal Error] The message '" + getIdentifier() + "' must originate from the client!");
         }
 
-        @Environment(EnvType.CLIENT)
+        @OnlyIn(Dist.CLIENT)
         @Override
         void sendToServer(Minecraft client) {
             if (prepareDataOnClient()) {
@@ -265,14 +265,14 @@ public abstract class DataHandler extends BaseDataHandler {
 
         abstract protected void serializeDataOnServer(FriendlyByteBuf buf);
 
-        @Environment(EnvType.CLIENT)
+        @OnlyIn(Dist.CLIENT)
         abstract protected void deserializeIncomingDataOnClient(FriendlyByteBuf buf, PacketSender responseSender);
 
-        @Environment(EnvType.CLIENT)
+        @OnlyIn(Dist.CLIENT)
         abstract protected void runOnClientGameThread(Minecraft client);
 
 
-        @Environment(EnvType.CLIENT)
+        @OnlyIn(Dist.CLIENT)
         @Override
         final void receiveFromServer(
                 Minecraft client,
@@ -323,7 +323,7 @@ public abstract class DataHandler extends BaseDataHandler {
             }
         }
 
-        @Environment(EnvType.CLIENT)
+        @OnlyIn(Dist.CLIENT)
         @Override
         final void sendToServer(Minecraft client) {
             BCLib.LOGGER.error("[Internal Error] The message '" + getIdentifier() + "' must originate from the server!");

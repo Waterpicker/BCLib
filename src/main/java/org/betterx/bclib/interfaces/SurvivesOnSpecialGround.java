@@ -18,7 +18,7 @@ import java.util.List;
 public interface SurvivesOnSpecialGround {
     String getSurvivableBlocksString();
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     static List<String> splitLines(String input) {
         final int MAX_LEN = 45;
         List<String> lines = Lists.newArrayList();
@@ -37,7 +37,7 @@ public interface SurvivesOnSpecialGround {
         return lines;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     static void appendHoverText(List<Component> list, String description) {
         if (!Configs.CLIENT_CONFIG.survivesOnHint()) return;
         final int MAX_LINES = 7;

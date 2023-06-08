@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class BaseFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
     public BaseFurnaceBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(BaseBlockEntities.FURNACE, blockPos, blockState, RecipeType.SMELTING);
+        super(BaseBlockEntities.FURNACE.get(), blockPos, blockState, RecipeType.SMELTING);
     }
 
     protected Component getDefaultName() {

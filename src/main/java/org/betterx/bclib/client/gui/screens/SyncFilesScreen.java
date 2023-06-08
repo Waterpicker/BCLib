@@ -14,7 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class SyncFilesScreen extends BCLibLayoutScreen {
     private final Component description;
     private final SyncFilesScreen.Listener listener;
@@ -137,7 +137,7 @@ public class SyncFilesScreen extends BCLibLayoutScreen {
         return grid;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public interface Listener {
         void proceed(boolean downloadMods, boolean downloadConfigs, boolean downloadFiles, boolean removeFiles);
     }

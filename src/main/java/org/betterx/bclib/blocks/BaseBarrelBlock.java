@@ -1,12 +1,5 @@
 package org.betterx.bclib.blocks;
 
-import org.betterx.bclib.blockentities.BaseBarrelBlockEntity;
-import org.betterx.bclib.client.models.BasePatterns;
-import org.betterx.bclib.client.models.ModelsHelper;
-import org.betterx.bclib.client.models.PatternsHelper;
-import org.betterx.bclib.interfaces.BlockModelProvider;
-import org.betterx.bclib.registry.BaseBlockEntities;
-
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.BlockModelRotation;
 import net.minecraft.client.resources.model.UnbakedModel;
@@ -31,14 +24,19 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.phys.BlockHitResult;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.betterx.bclib.blockentities.BaseBarrelBlockEntity;
+import org.betterx.bclib.client.models.BasePatterns;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.interfaces.BlockModelProvider;
+import org.betterx.bclib.registry.BaseBlockEntities;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import org.jetbrains.annotations.Nullable;
 
 public class BaseBarrelBlock extends BarrelBlock implements BlockModelProvider {
     public BaseBarrelBlock(Block source) {
@@ -51,7 +49,7 @@ public class BaseBarrelBlock extends BarrelBlock implements BlockModelProvider {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return BaseBlockEntities.BARREL.create(blockPos, blockState);
+        return BaseBlockEntities.BARREL.get().create(blockPos, blockState);
     }
 
     @Override
@@ -109,13 +107,13 @@ public class BaseBarrelBlock extends BarrelBlock implements BlockModelProvider {
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public BlockModel getItemModel(ResourceLocation blockId) {
         return getBlockModel(blockId, defaultBlockState());
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public @Nullable BlockModel getBlockModel(ResourceLocation blockId, BlockState blockState) {
         Optional<String> pattern;
         if (blockState.getValue(OPEN)) {
@@ -127,7 +125,7 @@ public class BaseBarrelBlock extends BarrelBlock implements BlockModelProvider {
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public UnbakedModel getModelVariant(
             ResourceLocation stateId,
             BlockState blockState,
@@ -137,26 +135,14 @@ public class BaseBarrelBlock extends BarrelBlock implements BlockModelProvider {
         ResourceLocation modelId = new ResourceLocation(stateId.getNamespace(), "block/" + stateId.getPath() + open);
         registerBlockModel(stateId, modelId, blockState, modelCache);
         Direction facing = blockState.getValue(FACING);
-        BlockModelRotation rotation = BlockModelRotation.X0_Y0;
-        switch (facing) {
-            case NORTH:
-                rotation = BlockModelRotation.X90_Y0;
-                break;
-            case EAST:
-                rotation = BlockModelRotation.X90_Y90;
-                break;
-            case SOUTH:
-                rotation = BlockModelRotation.X90_Y180;
-                break;
-            case WEST:
-                rotation = BlockModelRotation.X90_Y270;
-                break;
-            case DOWN:
-                rotation = BlockModelRotation.X180_Y0;
-                break;
-            default:
-                break;
-        }
+        BlockModelRotation rotation = switch (facing) {
+            case NORTH -> BlockModelRotation.X90_Y0;
+            case EAST -> BlockModelRotation.X90_Y90;
+            case SOUTH -> BlockModelRotation.X90_Y180;
+            case WEST -> BlockModelRotation.X90_Y270;
+            case DOWN -> BlockModelRotation.X180_Y0;
+            default -> BlockModelRotation.X0_Y0;
+        };
         return ModelsHelper.createMultiVariant(modelId, rotation.getRotation(), false);
     }
 }

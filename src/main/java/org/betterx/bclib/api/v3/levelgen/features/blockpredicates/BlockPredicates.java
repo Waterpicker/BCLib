@@ -39,7 +39,7 @@ public class BlockPredicates {
     );
 
     public static <P extends BlockPredicate> BlockPredicateType<P> register(ResourceLocation location, Codec<P> codec) {
-        return Registry.register(Registry.BLOCK_PREDICATE_TYPES, location, () -> codec);
+        return Registry.register(Registry.BLOCK_PREDICATE_TYPES, location, () -> codec);// TODO: THIS
     }
 
     public static void ensureStaticInitialization() {

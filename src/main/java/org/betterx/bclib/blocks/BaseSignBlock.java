@@ -1,11 +1,5 @@
 package org.betterx.bclib.blocks;
 
-import org.betterx.bclib.blockentities.BaseSignBlockEntity;
-import org.betterx.bclib.client.models.ModelsHelper;
-import org.betterx.bclib.interfaces.BlockModelProvider;
-import org.betterx.bclib.interfaces.CustomItemProvider;
-import org.betterx.bclib.util.BlocksHelper;
-
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -38,13 +32,17 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.betterx.bclib.blockentities.BaseSignBlockEntity;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.interfaces.BlockModelProvider;
+import org.betterx.bclib.interfaces.CustomItemProvider;
+import org.betterx.bclib.util.BlocksHelper;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
-import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class BaseSignBlock extends SignBlock implements BlockModelProvider, CustomItemProvider {
@@ -161,7 +159,7 @@ public class BaseSignBlock extends SignBlock implements BlockModelProvider, Cust
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public @Nullable BlockModel getBlockModel(ResourceLocation resourceLocation, BlockState blockState) {
         ResourceLocation parentId = Registry.BLOCK.getKey(parent);
         return ModelsHelper.createBlockEmpty(parentId);

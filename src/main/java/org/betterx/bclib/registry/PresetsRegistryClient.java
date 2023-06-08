@@ -6,7 +6,7 @@ import org.betterx.worlds.together.worldPreset.client.WorldPresetsClient;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class PresetsRegistryClient {
     public static void onLoad() {
         WorldPresetsClient.registerCustomizeUI(PresetsRegistry.BCL_WORLD, (createWorldScreen, worldCreationContext) -> {

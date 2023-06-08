@@ -10,7 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class WarnBCLibVersionMismatch extends BCLibLayoutScreen {
     private final Component description;
     private final Listener listener;
@@ -42,7 +42,7 @@ public class WarnBCLibVersionMismatch extends BCLibLayoutScreen {
         return grid;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public interface Listener {
         void proceed(boolean download);
     }

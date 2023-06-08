@@ -1,15 +1,5 @@
 package org.betterx.bclib.api.v2.datafixer;
 
-import org.betterx.bclib.BCLib;
-import org.betterx.bclib.client.gui.screens.AtomicProgressListener;
-import org.betterx.bclib.client.gui.screens.ConfirmFixScreen;
-import org.betterx.bclib.client.gui.screens.LevelFixErrorScreen;
-import org.betterx.bclib.client.gui.screens.LevelFixErrorScreen.Listener;
-import org.betterx.bclib.client.gui.screens.ProgressScreen;
-import org.betterx.bclib.config.Configs;
-import org.betterx.worlds.together.util.Logger;
-import org.betterx.worlds.together.world.WorldConfig;
-
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.SystemToast;
@@ -21,9 +11,18 @@ import net.minecraft.world.level.chunk.storage.RegionFile;
 import net.minecraft.world.level.storage.LevelResource;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.LevelStorageSource.LevelStorageAccess;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.betterx.bclib.BCLib;
+import org.betterx.bclib.client.gui.screens.AtomicProgressListener;
+import org.betterx.bclib.client.gui.screens.ConfirmFixScreen;
+import org.betterx.bclib.client.gui.screens.LevelFixErrorScreen;
+import org.betterx.bclib.client.gui.screens.LevelFixErrorScreen.Listener;
+import org.betterx.bclib.client.gui.screens.ProgressScreen;
+import org.betterx.bclib.config.Configs;
+import org.betterx.worlds.together.util.Logger;
+import org.betterx.worlds.together.world.WorldConfig;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -35,7 +34,6 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.zip.ZipException;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * API to manage Patches that need to get applied to a world
@@ -145,7 +143,7 @@ public class DataFixerAPI {
     }
 
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     private static AtomicProgressListener showProgressScreen() {
         ProgressScreen ps = new ProgressScreen(
                 Minecraft.getInstance().screen,
@@ -254,7 +252,7 @@ public class DataFixerAPI {
         return false;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     private static void showLevelFixErrorScreen(State state, Listener onContinue) {
         Minecraft.getInstance()
                  .setScreen(new LevelFixErrorScreen(
@@ -288,7 +286,7 @@ public class DataFixerAPI {
         return profile;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     static void showBackupWarning(String levelID, BiConsumer<Boolean, Boolean> whenFinished) {
         Minecraft.getInstance().setScreen(new ConfirmFixScreen(null, whenFinished::accept));
     }

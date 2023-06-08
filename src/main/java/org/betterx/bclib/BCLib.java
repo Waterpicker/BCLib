@@ -1,5 +1,9 @@
 package org.betterx.bclib;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.betterx.bclib.api.v2.dataexchange.DataExchangeAPI;
 import org.betterx.bclib.api.v2.dataexchange.handler.autosync.*;
 import org.betterx.bclib.api.v2.generator.BCLibEndBiomeSource;
@@ -37,7 +41,10 @@ import net.fabricmc.loader.api.FabricLoader;
 
 import java.util.List;
 
-public class BCLib implements ModInitializer {
+import static org.betterx.bclib.BCLib.MOD_ID;
+
+@Mod(MOD_ID)
+public class BCLib {
     public static final String MOD_ID = "bclib";
     public static final Logger LOGGER = new Logger(MOD_ID);
 
@@ -45,17 +52,18 @@ public class BCLib implements ModInitializer {
                                                              .getModContainer("nullscape")
                                                              .isPresent();
 
-    @Override
-    public void onInitialize() {
+    public BCLib() {
+        var bus = FMLJavaModLoadingContext.get().getModEventBus();
+
         WorldsTogether.onInitialize();
         LevelGenEvents.register();
         BlockPredicates.ensureStaticInitialization();
         BCLBiomeRegistry.ensureStaticallyLoaded();
         BaseRegistry.register();
         GeneratorOptions.init();
-        BaseBlockEntities.register();
-        BCLibEndBiomeSource.register();
-        BCLibNetherBiomeSource.register();
+        BaseBlockEntities.register(bus);
+        BCLibEndBiomeSource.register(bus);
+        BCLibNetherBiomeSource.register(bus);
         CraftingRecipes.init();
         WorldConfig.registerModCache(MOD_ID);
         DataExchangeAPI.registerMod(MOD_ID);
@@ -161,7 +169,7 @@ public class BCLib implements ModInitializer {
     }
 
     public static boolean isClient() {
-        return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
+        return FMLEnvironment.dist == Dist.CLIENT;
     }
 
     public static ResourceLocation makeID(String path) {

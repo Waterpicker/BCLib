@@ -14,6 +14,6 @@ public class BaseSignBlockEntity extends SignBlockEntity {
 
     @Override
     public BlockEntityType<?> getType() {
-        return BaseBlockEntities.SIGN;
+        return BaseBlockEntities.SIGN.get();
     }
 }

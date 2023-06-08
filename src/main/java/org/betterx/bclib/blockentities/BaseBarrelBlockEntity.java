@@ -60,7 +60,7 @@ public class BaseBarrelBlockEntity extends RandomizableContainerBlockEntity {
     }
 
     public BaseBarrelBlockEntity(BlockPos blockPos, BlockState blockState) {
-        this(BaseBlockEntities.BARREL, blockPos, blockState);
+        this(BaseBlockEntities.BARREL.get(), blockPos, blockState);
     }
 
     @Override

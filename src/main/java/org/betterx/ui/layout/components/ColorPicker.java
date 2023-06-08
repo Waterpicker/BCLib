@@ -8,7 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ColorPicker extends AbstractHorizontalStack<ColorPicker> {
     ColorSwatch swatch;
     Input input;

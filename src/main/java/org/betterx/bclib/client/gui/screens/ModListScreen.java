@@ -21,7 +21,7 @@ import net.fabricmc.loader.api.metadata.ModEnvironment;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ModListScreen extends BCLibLayoutScreen {
     private final List<ModUtil.ModInfo> mods;
     private final HelloClient.IServerModMap serverInfo;

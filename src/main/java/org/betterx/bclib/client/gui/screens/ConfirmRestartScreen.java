@@ -11,7 +11,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ConfirmRestartScreen extends BCLibLayoutScreen {
     private final Component description;
     private final ConfirmRestartScreen.Listener listener;
@@ -45,7 +45,7 @@ public class ConfirmRestartScreen extends BCLibLayoutScreen {
         return grid;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public interface Listener {
         void proceed();
     }

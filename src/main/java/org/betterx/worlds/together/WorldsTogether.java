@@ -20,7 +20,7 @@ public class WorldsTogether {
                                                                 .isPresent();
 
     public static boolean isDevEnvironment() {
-        return FabricLoader.getInstance().isDevelopmentEnvironment();
+        return false; //TODO: Figure out this for forge. FabricLoader.getInstance().isDevelopmentEnvironment();
     }
 
     public static void onInitialize() {

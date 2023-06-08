@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ModelsHelper {
     public static BlockModel fromPattern(Optional<String> pattern) {
         return pattern.map(BlockModel::fromString).orElse(null);

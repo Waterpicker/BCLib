@@ -11,7 +11,7 @@ import net.minecraft.core.Direction;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class UnbakedQuad {
     private static final Vector4f POS = new Vector4f();
     private final float[] data = new float[20]; // 4 points with 3 positions and 2 uvs, 4 * (3 + 2)

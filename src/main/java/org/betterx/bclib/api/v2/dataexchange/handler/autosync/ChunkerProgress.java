@@ -7,21 +7,21 @@ import net.minecraft.util.ProgressListener;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ChunkerProgress {
     private static ProgressScreen progressScreen;
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public static void setProgressScreen(ProgressScreen scr) {
         progressScreen = scr;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public static ProgressScreen getProgressScreen() {
         return progressScreen;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public static ProgressListener getProgressListener() {
         return progressScreen;
     }

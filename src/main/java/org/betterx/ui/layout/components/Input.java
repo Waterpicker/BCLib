@@ -14,7 +14,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class Input extends AbstractVanillaComponent<EditBox, Input> {
     private Consumer<String> responder;
     private BiFunction<String, Integer, FormattedCharSequence> formatter;

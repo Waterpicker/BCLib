@@ -1,5 +1,9 @@
 package org.betterx.bclib.registry;
 
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 import org.betterx.bclib.BCLib;
 import org.betterx.bclib.blockentities.*;
 import org.betterx.bclib.blockentities.DynamicBlockEntityType.BlockEntitySupplier;
@@ -14,25 +18,28 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class BaseBlockEntities {
-    public static final DynamicBlockEntityType<BaseChestBlockEntity> CHEST = registerBlockEntityType(BCLib.makeID(
+    private static final DeferredRegister<BlockEntityType<?>> BASE_BLOCK_ENTITIES = DeferredRegister.create(Registry.BLOCK_ENTITY_TYPE_REGISTRY, BCLib.MOD_ID);
+
+    public static final RegistryObject<DynamicBlockEntityType<BaseChestBlockEntity>> CHEST = registerBlockEntityType(BCLib.makeID(
             "chest"), BaseChestBlockEntity::new);
-    public static final DynamicBlockEntityType<BaseBarrelBlockEntity> BARREL = registerBlockEntityType(BCLib.makeID(
+    public static final RegistryObject<DynamicBlockEntityType<BaseBarrelBlockEntity>> BARREL = registerBlockEntityType(BCLib.makeID(
             "barrel"), BaseBarrelBlockEntity::new);
-    public static final DynamicBlockEntityType<BaseSignBlockEntity> SIGN = registerBlockEntityType(
+    public static final RegistryObject<DynamicBlockEntityType<BaseSignBlockEntity>> SIGN = registerBlockEntityType(
             BCLib.makeID("sign"),
             BaseSignBlockEntity::new
     );
-    public static final DynamicBlockEntityType<BaseFurnaceBlockEntity> FURNACE = registerBlockEntityType(BCLib.makeID(
+    public static final RegistryObject<DynamicBlockEntityType<BaseFurnaceBlockEntity>> FURNACE = registerBlockEntityType(BCLib.makeID(
             "furnace"), BaseFurnaceBlockEntity::new);
 
-    public static <T extends BlockEntity> DynamicBlockEntityType<T> registerBlockEntityType(
+    public static <T extends BlockEntity> RegistryObject<DynamicBlockEntityType<T>> registerBlockEntityType(
             ResourceLocation typeId,
             BlockEntitySupplier<? extends T> supplier
     ) {
-        return Registry.register(Registry.BLOCK_ENTITY_TYPE, typeId, new DynamicBlockEntityType<>(supplier));
+        return BaseBlockEntities.BASE_BLOCK_ENTITIES.register(typeId, () -> new DynamicBlockEntityType<>(supplier));
     }
 
-    public static void register() {
+    public static void register(IEventBus bus) {
+        BASE_BLOCK_ENTITIES.register(bus);
     }
 
     public static Block[] getChests() {

@@ -9,7 +9,7 @@ import net.fabricmc.api.Environment;
 
 import java.util.Optional;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class WorldPresetsClient {
     public static void registerCustomizeUI(ResourceKey<WorldPreset> key, PresetEditor setupScreen) {
         if (setupScreen != null) {

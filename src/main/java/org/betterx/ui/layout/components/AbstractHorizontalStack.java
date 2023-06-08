@@ -8,7 +8,7 @@ import org.betterx.ui.layout.values.Value;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class AbstractHorizontalStack<S extends AbstractHorizontalStack<S>> extends AbstractStack<NullRenderer, S> implements RelativeContainerEventHandler {
     public AbstractHorizontalStack(Value width, Value height) {
         super(width, height);

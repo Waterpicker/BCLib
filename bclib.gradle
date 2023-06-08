@@ -25,17 +25,20 @@ repositories {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/bclib.accesswidener")
+	silentMojangMappingsLicense()
+	forge {
+        mixinConfigs = [
+                "examplemod.mixins.json"
+        ]
+    }
+
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
-
-    modCompileOnly "dev.emi:emi:${emi_version}"
+    forge "net.minecraftforge:forge:${project.forge_version}"
+    modCompileOnly "dev.emi:emi-forge:${emi_version}"
     //modImplementation "dev.emi:emi:${emi_version}"
 }
 

@@ -33,7 +33,7 @@ import java.util.*;
 import java.util.function.Function;
 import org.jetbrains.annotations.Nullable;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class OBJBlockModel implements UnbakedModel, BakedModel {
     private static final Vector3f[] POSITIONS = new Vector3f[]{new Vector3f(), new Vector3f(), new Vector3f()};
 

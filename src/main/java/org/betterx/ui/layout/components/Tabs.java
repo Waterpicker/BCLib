@@ -10,7 +10,7 @@ import net.fabricmc.api.Environment;
 import java.util.LinkedList;
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class Tabs extends AbstractVerticalStack<Tabs> {
     @FunctionalInterface
     public interface OnPageChange {

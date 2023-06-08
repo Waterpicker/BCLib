@@ -181,7 +181,7 @@ public class HelloClient extends DataHandler.FromServer {
     List<SyncFolderDescriptor> autoSynFolders = null;
     boolean serverPublishedModInfo = false;
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Override
     protected void deserializeIncomingDataOnClient(FriendlyByteBuf buf, PacketSender responseSender) {
         //read BCLibVersion (=protocol version)
@@ -223,7 +223,7 @@ public class HelloClient extends DataHandler.FromServer {
         serverPublishedModInfo = buf.readBoolean();
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     private void processAutoSyncFolder(
             final List<AutoSyncID> filesToRequest,
             final List<AutoSyncID.ForDirectFileRequest> filesToRemove
@@ -307,7 +307,7 @@ public class HelloClient extends DataHandler.FromServer {
         });
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     private void processSingleFileSync(final List<AutoSyncID> filesToRequest) {
         final boolean debugHashes = Configs.CLIENT_CONFIG.shouldPrintDebugHashes();
 
@@ -352,7 +352,7 @@ public class HelloClient extends DataHandler.FromServer {
     }
 
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     private void processModFileSync(final List<AutoSyncID> filesToRequest, final Set<String> mismatchingMods) {
         for (Entry<String, OfferedModInfo> e : modVersion.entrySet()) {
             final String localVersion = ModUtil.convertModVersion(ModUtil.convertModVersion(ModUtil.getModVersion(e.getKey())));
@@ -384,7 +384,7 @@ public class HelloClient extends DataHandler.FromServer {
         return true;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Override
     protected void runOnClientGameThread(Minecraft client) {
         if (!Configs.CLIENT_CONFIG.isAllowingAutoSync()) {
@@ -428,7 +428,7 @@ public class HelloClient extends DataHandler.FromServer {
         }
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     protected void showBCLibError(Minecraft client) {
         BCLib.LOGGER.error("BCLib differs on client and server.");
         client.setScreen(new WarnBCLibVersionMismatch((download) -> {
@@ -443,7 +443,7 @@ public class HelloClient extends DataHandler.FromServer {
         }));
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     protected void showSyncFilesScreen(
             Minecraft client,
             List<AutoSyncID> files,
@@ -504,7 +504,7 @@ public class HelloClient extends DataHandler.FromServer {
         ));
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     private void onCloseSyncFilesScreen() {
         Minecraft.getInstance()
                  .setScreen(ChunkerProgress.getProgressScreen());
@@ -527,7 +527,7 @@ public class HelloClient extends DataHandler.FromServer {
         requestFileDownloads(List.of(new AutoSyncID.ForModFileRequest(BCLib.MOD_ID, bclibVersion)));
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     private void requestFileDownloads(List<AutoSyncID> files) {
         BCLib.LOGGER.info("Starting download of Files:" + files.size());
 

@@ -1,9 +1,6 @@
 package org.betterx.bclib.blocks;
 
-import org.betterx.bclib.client.render.BCLRenderLayer;
-import org.betterx.bclib.interfaces.RenderLayerProvider;
-import org.betterx.bclib.items.tool.BaseShearsItem;
-
+import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -31,10 +28,9 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-
-import com.google.common.collect.Lists;
+import org.betterx.bclib.client.render.BCLRenderLayer;
+import org.betterx.bclib.interfaces.RenderLayerProvider;
+import org.betterx.bclib.items.tool.BaseShearsItem;
 
 import java.util.List;
 import java.util.function.Function;
@@ -60,7 +56,7 @@ public abstract class UnderwaterPlantBlock extends BaseBlockNotFull implements R
     }
 
     public static Properties baseUnderwaterPlantSettings(Material mat, int light) {
-        Properties props = FabricBlockSettings
+        Properties props = BlockBehaviour.Properties
                 .of(mat)
                 .sound(SoundType.WET_GRASS)
                 .noCollission()

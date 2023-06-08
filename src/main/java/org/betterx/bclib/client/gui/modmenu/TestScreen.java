@@ -12,7 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class TestScreen extends LayoutScreen {
     public TestScreen(Component component) {
         super(component);

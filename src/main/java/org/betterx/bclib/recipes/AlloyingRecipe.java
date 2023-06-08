@@ -119,12 +119,12 @@ public class AlloyingRecipe implements Recipe<Container>, UnknownReceipBookCateg
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public String getGroup() {
         return this.group;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public ItemStack getToastSymbol() {
         return AlloyingRecipeWorkstation.getWorkstationIcon();
     }

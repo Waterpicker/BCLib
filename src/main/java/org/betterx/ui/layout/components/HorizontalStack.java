@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class HorizontalStack extends AbstractHorizontalStack<HorizontalStack> {
     public HorizontalStack(Value width, Value height) {
         super(width, height);

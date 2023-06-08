@@ -1,5 +1,17 @@
 package org.betterx.bclib.api.v2.generator;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.RegistryOps;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeSource;
+import net.minecraft.world.level.biome.Climate;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
 import org.betterx.bclib.BCLib;
 import org.betterx.bclib.api.v2.generator.config.BCLNetherBiomeSourceConfig;
 import org.betterx.bclib.api.v2.generator.config.MapBuilderFunction;
@@ -12,19 +24,6 @@ import org.betterx.bclib.config.Configs;
 import org.betterx.bclib.interfaces.BiomeMap;
 import org.betterx.worlds.together.biomesource.BiomeSourceWithConfig;
 import org.betterx.worlds.together.biomesource.ReloadableBiomeSource;
-
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.RegistryOps;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BiomeTags;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeSource;
-import net.minecraft.world.level.biome.Climate;
-
-import net.fabricmc.fabric.api.biome.v1.NetherBiomes;
 
 import java.util.List;
 import java.util.Set;
@@ -150,9 +149,8 @@ public class BCLibNetherBiomeSource extends BCLBiomeSource implements BiomeSourc
         return getBiomes(biomeRegistry, exclude, include, BCLibNetherBiomeSource::isValidNetherBiome);
     }
 
-
     private static boolean isValidNetherBiome(Holder<Biome> biome, ResourceLocation location) {
-        return NetherBiomes.canGenerateInNether(biome.unwrapKey().get()) ||
+        return /*NetherBiomes.canGenerateInNether(biome.unwrapKey().get()) ||*/
                 biome.is(BiomeTags.IS_NETHER) ||
                 BiomeAPI.wasRegisteredAsNetherBiome(location);
     }
@@ -165,12 +163,16 @@ public class BCLibNetherBiomeSource extends BCLBiomeSource implements BiomeSourc
                                                                                       .equals("minecraft"))
             return false;
 
-        return NetherBiomes.canGenerateInNether(biome.unwrapKey().get()) ||
+        return /*NetherBiomes.canGenerateInNether(biome.unwrapKey().get()) ||*/
                 BiomeAPI.wasRegisteredAsNetherBiome(location);
     }
 
-    public static void register() {
-        Registry.register(Registry.BIOME_SOURCE, BCLib.makeID("nether_biome_source"), CODEC);
+    public static void register(IEventBus bus) {
+        DeferredRegister<Codec<? extends BiomeSource>> BIOME_SOURCES = DeferredRegister.create(Registry.BIOME_SOURCE_REGISTRY, BCLib.MOD_ID);
+        BIOME_SOURCES.register("end_biome_source", () -> CODEC);
+        BIOME_SOURCES.register("nether_biome_source", () -> CODEC);
+        BIOME_SOURCES.register(bus);
+
     }
 
 

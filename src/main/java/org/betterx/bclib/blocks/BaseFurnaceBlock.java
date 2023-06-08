@@ -64,7 +64,7 @@ public class BaseFurnaceBlock extends FurnaceBlock implements BlockModelProvider
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public @Nullable BlockModel getBlockModel(ResourceLocation blockId, BlockState blockState) {
         String blockName = blockId.getPath();
         Map<String, String> textures = Maps.newHashMap();
@@ -84,13 +84,13 @@ public class BaseFurnaceBlock extends FurnaceBlock implements BlockModelProvider
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public BlockModel getItemModel(ResourceLocation resourceLocation) {
         return getBlockModel(resourceLocation, defaultBlockState());
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public UnbakedModel getModelVariant(
             ResourceLocation stateId,
             BlockState blockState,
@@ -128,7 +128,7 @@ public class BaseFurnaceBlock extends FurnaceBlock implements BlockModelProvider
             BlockState blockState,
             BlockEntityType<T> blockEntityType
     ) {
-        return createFurnaceTicker(level, blockEntityType, BaseBlockEntities.FURNACE);
+        return createFurnaceTicker(level, blockEntityType, BaseBlockEntities.FURNACE.get());
     }
 
     @Nullable

@@ -22,7 +22,7 @@ public class BaseSpawnEggItem extends SpawnEggItem implements ItemModelProvider 
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public BlockModel getItemModel(ResourceLocation resourceLocation) {
         Optional<String> pattern = PatternsHelper.createJson(BasePatterns.ITEM_SPAWN_EGG, resourceLocation);
         return ModelsHelper.fromPattern(pattern);

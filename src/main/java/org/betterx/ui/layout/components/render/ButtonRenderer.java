@@ -11,7 +11,7 @@ import net.minecraft.client.gui.GuiComponent;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ButtonRenderer extends AbstractVanillaComponentRenderer<net.minecraft.client.gui.components.Button, Button> {
     double deltaSum = 0;
     double deltaSum2 = .34;

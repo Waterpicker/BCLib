@@ -8,19 +8,19 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class Button extends AbstractVanillaComponent<net.minecraft.client.gui.components.Button, Button> {
     public static final OnTooltip NO_TOOLTIP = (button, poseStack, i, j) -> {
     };
     public static final OnPress NO_ACTION = (button) -> {
     };
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public interface OnTooltip {
         void onTooltip(Button button, PoseStack poseStack, int mouseX, int mouseY);
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public interface OnPress {
         void onPress(Button button);
     }
